@@ -50,11 +50,11 @@ public class ProductInfoServiceImplTest {
     @Test
     public void toSave() {
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setProductId("mmgc002");
+        productInfo.setProductId("mmgc001");
         productInfo.setCategoryType(5);
         productInfo.setProductDescription("各种莓");
         productInfo.setProductIcon("http://xxxxx.jpg");
-        productInfo.setProductName("霉霉果茶");
+        productInfo.setProductName("草莓缤纷乐");
         productInfo.setProductPrice(new BigDecimal(15));
         productInfo.setProductStatus(1);
         productInfo.setProductStock(99999);

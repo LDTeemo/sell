@@ -15,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sound.sampled.Line;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,21 +32,29 @@ public class OrderServiceImplTest {
 
     @Test
     public void createOrder() {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setBuyerOpenid(BUYEROPENID);
-        orderDTO.setBuyerAddress("武侯区神仙树北路11号");
-        orderDTO.setBuyerName("阿翔");
-        orderDTO.setBuyerPhone("18689542356");
+        for (int i = 0; i<30 ;i++) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setBuyerOpenid(BUYEROPENID);
+            orderDTO.setBuyerAddress("留给核桃");
+            orderDTO.setBuyerName("真心人");
+            orderDTO.setBuyerPhone("13689742356");
+            Timestamp d = new Timestamp(System.currentTimeMillis());
+            orderDTO.setCreateTime(d);
+            orderDTO.setUpdateTime(d);
 
-        List<OrderDetail> list = new ArrayList<>();
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setProductId("zhwlng001");
-        orderDetail.setProductQuantity(2);
-        list.add(orderDetail);
-        orderDTO.setOrderDetailList(list);
-        OrderDTO oResult = orderService.createOrder(orderDTO);
-        log.info("创建订单成，订单编号:{}",oResult.getOrderId());
-        Assert.assertNotNull(oResult.getOrderId());
+            List<OrderDetail> list = new ArrayList<>();
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProductId("mmgc001");
+            orderDetail.setCreateTime(d);
+            orderDetail.setUpdateTime(d);
+            orderDetail.setProductQuantity(3);
+            list.add(orderDetail);
+            orderDTO.setOrderDetailList(list);
+
+            OrderDTO oResult = orderService.createOrder(orderDTO);
+            log.info("创建订单成，订单编号:{}", oResult.getOrderId());
+            Assert.assertNotNull(oResult.getOrderId());
+        }
     }
 
     @Test
@@ -89,5 +100,13 @@ public class OrderServiceImplTest {
         orderDTO.setBuyerOpenid("luoqiang");
         OrderDTO result = orderService.paidOrder(orderDTO);
         Assert.assertEquals(1,result.getPayStatus().longValue());
+    }
+
+    @Test
+    public void findAllTest(){
+        PageRequest pageRequest = PageRequest.of(0,10);
+        Page<OrderDTO> orderDTOS = orderService.findAllOrder(pageRequest);
+        log.info("查询结果{}",orderDTOS.getContent());
+        Assert.assertNotEquals(0,orderDTOS.getContent().size());
     }
 }

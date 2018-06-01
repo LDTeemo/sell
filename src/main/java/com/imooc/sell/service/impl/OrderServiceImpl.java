@@ -1,5 +1,6 @@
 package com.imooc.sell.service.impl;
 
+import com.bea.xml.stream.samples.AllocEventParser;
 import com.imooc.sell.appException.SellException;
 import com.imooc.sell.converter.OrderDetail2CartDTO;
 import com.imooc.sell.converter.OrderMaster2OrderDTO;
@@ -183,5 +184,21 @@ public class OrderServiceImpl implements OrderService {
         }
         orderDTO.setPayStatus(updateResult.getPayStatus());
         return orderDTO;
+    }
+
+
+    /**
+     * 商户查询所有的订单
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<OrderDTO> findAllOrder(Pageable pageable) {
+        Page<OrderMaster> allOrders = orderMasterRepository.findAll(pageable);
+        // 返回对象需要转成数据传输对象，实体类不能暴露
+        List<OrderMaster> list = allOrders.getContent();
+        List<OrderDTO> orderDTOS = OrderMaster2OrderDTO.orderMaster2DTO(list);
+
+        return new PageImpl<>(orderDTOS,pageable,allOrders.getTotalElements());
     }
 }
