@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+
+    <!--指定输出控制台的格式-->
+    <appender name = "consoleLog" class = "ch.qos.logback.core.ConsoleAppender">
+        <layout class = "ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %d - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!--现在针对 info和error 输出不同的文件-->
+    <!--info-->
+    <appender name = "fileInfoLog" class = "ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class = "ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                %msg%n
+            </pattern>
+        </encoder>
+        <!--滚动的策略-->
+        <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--路径，这里书写的是绝对路径-->
+            <fileNamePattern>F:/var/log/sell/info.%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--error-->
+    <appender name = "fileErrorLog" class = "ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class = "ch.qos.logback.classic.filter.ThresholdFilter">  <!-- 根据范围来过滤 -->
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>
+                %msg%n
+            </pattern>
+        </encoder>
+        <!--滚动的策略-->
+        <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--路径，这里书写的是绝对路径-->
+            <fileNamePattern>F:/var/log/sell/error.%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--指定需要引入哪些appender-->
+    <root level = "info">
+        <appender-ref ref="consoleLog"/>
+        <appender-ref ref="fileInfoLog"/>
+        <appender-ref ref="fileErrorLog"/>
+
+    </root>
+</configuration>

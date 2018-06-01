@@ -1,0 +1,42 @@
+package com.imooc.sell.dataObject;
+
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+/**
+ * 商品信息实体类
+ */
+@Entity
+@Data
+@Table(name = "product_info")
+@DynamicUpdate
+public class ProductInfo {
+    /**
+     * 指定自增策略，不然会报找不到sequence，Oracle就不会，奇怪，mysql中设计这个主键是varchar的，不能自增，
+     * 这里写自增策略没有用
+     */
+    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String productId;
+
+    private String productName;
+
+    private BigDecimal productPrice;
+
+    private Integer productStock;
+
+    private String productDescription;
+
+    private String productIcon;
+
+    private Integer categoryType;
+
+    private Integer productStatus;
+
+
+
+
+}
