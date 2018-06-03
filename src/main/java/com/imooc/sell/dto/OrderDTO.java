@@ -1,9 +1,11 @@
 package com.imooc.sell.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.sell.dataObject.OrderDetail;
 import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.enums.PayStatusEnum;
+import com.imooc.sell.utils.EnumUtil;
 import lombok.Data;
 import serializer.Date2LongSerializer;
 
@@ -40,6 +42,18 @@ public class OrderDTO {
     private Date updateTime;
 
     private List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getEnum(orderStatus,OrderStatusEnum.class);
+    }
+
+
+    // 方法修饰不能为私有，因为getEnum是传入的是父类引用对象，是访问不到子类的私有方法的；
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum(){
+        return EnumUtil.getEnum(payStatus,PayStatusEnum.class);
+    }
 
 
 }

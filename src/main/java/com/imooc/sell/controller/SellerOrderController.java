@@ -25,12 +25,16 @@ public class SellerOrderController {
     private OrderService orderService;
 
     @RequestMapping("/list")
-    public ModelAndView getAllOrder(@RequestParam(name = "page" ,defaultValue = "0") int page,
-                                    @RequestParam(name = "pageSize" ,defaultValue = "0") int pageSize,
+    public ModelAndView getAllOrder(@RequestParam(name = "page" ,defaultValue = "1") int page,
+                                    @RequestParam(name = "pageSize" ,defaultValue = "10") int pageSize,
                                     Map<String,Object> map){
-        PageRequest pageRequest = PageRequest.of(page,pageSize);
+        PageRequest pageRequest = PageRequest.of(page-1,pageSize);
         Page<OrderDTO> orderDTOPage = orderService.findAllOrder(pageRequest);
+        //orderDTOPage.getContent().get(0).getOrderStatusEnum();
         map.put("orderDTOPage",orderDTOPage);
+        map.put("totalPages",orderDTOPage.getTotalPages());
+        map.put("currentPage",page);
+        map.put("pageSize",pageSize);
         return new ModelAndView("/order/orderList",map);
     }
 }

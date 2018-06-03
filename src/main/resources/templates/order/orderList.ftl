@@ -24,7 +24,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <#list orderDTOPage.content as orderDto>
+                            <#list orderDTOPage.getContent() as orderDto>
                                 <tr>
                                     <td>
                                         ${orderDto.orderId}
@@ -42,10 +42,10 @@
                                         ${orderDto.orderAmount}
                                     </td>
                                     <td>
-                                        ${orderDto.orderStatus}
+                                        ${orderDto.getOrderStatusEnum().msg}
                                     </td>
                                     <td>
-                                        ${orderDto.payStatus}
+                                        ${orderDto.getPayStatusEnum().msg}
                                     </td>
                                     <td>
                                         ${orderDto.createTime}
@@ -61,29 +61,51 @@
 
                         </tbody>
                     </table>
-                    <ul class="pagination">
-                        <li>
-                            <a href="#">前一页</a>
-                        </li>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li>
-                            <a href="#">后一页</a>
-                        </li>
-                    </ul>
+                    <div class="col-md-12 column">
+                        <ul class="pagination pull-right">
+                            <#--前一页的逻辑判断设计样式-->
+                            <#if currentPage lte 1>
+                                <li class="disabled">
+                                    <a href="#">上一页</a>
+                                </li>
+                            <#else>
+                                <li>
+                                    <a href="/sell/seller/order/list?page=${currentPage - 1}&size=${pageSize}">
+                                        上一页
+                                    </a>
+                                </li>
+                            </#if>
+
+                            <#--当前页逻辑判断-->
+                            <#list 1..totalPages as index>
+                                <#if currentPage == index>
+                                    <li class="disabled">
+                                        <a href="#">
+                                            ${index}
+                                        </a>
+                                    </li>
+                                <#else>
+                                    <li>
+                                        <a href="/sell/seller/order/list?page=${index}&size=${pageSize}">
+                                            ${index}
+                                        </a>
+                                    </li>
+                                </#if>
+                            </#list>
+
+                            <#--最后一页逻辑判断设计样式-->
+                            <#if currentPage gte totalPages>
+                                <li class="disabled"><a href="#">下一页</a></li>
+                            <#else>
+                                <li>
+                                    <a href="/sell/seller/order/list?page=${currentPage + 1}&size=${pageSize}">
+                                        下一页
+                                    </a>
+                                </li>
+                            </#if>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
