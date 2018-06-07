@@ -56,7 +56,9 @@
                                         ${orderDto.createTime}
                                     </td>
                                     <td>
-                                        详情
+                                        <a href="/sell/seller/order/detail?orderId=${orderDto.orderId}">
+                                            详情
+                                        </a>
                                     </td>
                                     <td>
                                         <#if orderDto.getOrderStatusEnum().code  == 0>

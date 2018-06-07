@@ -62,4 +62,12 @@ public class SellerOrderController {
         map.put("msg" , ResultEnum.SUCCESS.getMsg());
         return new ModelAndView("/common/success",map);
     }
+
+    @RequestMapping("/detail")
+    public ModelAndView getOrderDetail(@RequestParam("orderId") String orderId,
+                                       Map<String,Object> map){
+        OrderDTO orderdto = orderService.findOrder(orderId);
+        map.put("orderDto",orderdto);
+        return new ModelAndView("/order/orderDetail");
+    }
 }
