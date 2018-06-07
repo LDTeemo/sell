@@ -8,6 +8,11 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-md-12 column">
+
+                    <h3>
+                        订单列表
+                    </h3>
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -54,7 +59,11 @@
                                         详情
                                     </td>
                                     <td>
-                                        取消
+                                        <#if orderDto.getOrderStatusEnum().code  == 0>
+                                            <a href="/sell/seller/order/cancel?orderId=${orderDto.orderId}">
+                                                取消
+                                            </a>
+                                        </#if>
                                     </td>
                                 </tr>
                             </#list>

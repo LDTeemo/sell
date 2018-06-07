@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ResultEnum {
+    SUCCESS(0,"操作成功"),
 
     PARAM_ERROR(1,"参数错误"),
 
