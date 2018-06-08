@@ -53,13 +53,15 @@
                 </tbody>
             </table>
             <div class="row clearfix">
-                <#if orderDto.getOrderStatusEnum().code == 0>
-                    <div class="col-md-12 column">
-                        <button type="button" class="btn btn-default btn-primary">完结订单</button>
-                        <button type="button" class="btn btn-default btn-danger">取消订单</button>
-                    </div>
-                </#if>
 
+                    <div class="col-md-12 column">
+                        <#if (orderDto.getOrderStatusEnum().code == 0 && orderDto.getPayStatusEnum().code  == 1)>
+                        <a href="/sell/seller/order/toFinish?orderId=${orderDto.orderId}" type="button" class="btn btn-default btn-primary">完结订单</a>
+                        </#if>
+                        <#if (orderDto.getOrderStatusEnum().code == 0 && orderDto.getPayStatusEnum().code  == 0)>
+                            <a href="/sell/seller/order/cancel?orderId=${orderDto.orderId}" type="button" class="btn btn-default btn-danger">取消订单</a>
+                        </#if>
+                    </div>
             </div>
         </div>
     </div>

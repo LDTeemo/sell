@@ -70,4 +70,14 @@ public class SellerOrderController {
         map.put("orderDto",orderdto);
         return new ModelAndView("/order/orderDetail");
     }
+
+    @GetMapping("/toFinish")
+    public ModelAndView toFinish(@RequestParam("orderId") String orderId,
+                                 Map<String,Object> map){
+        OrderDTO orderDTO = orderService.findOrder(orderId);
+        orderService.finishOrder(orderDTO);
+        map.put("url","/seller/order/list");
+        map.put("msg",ResultEnum.SUCCESS.getMsg());
+        return new ModelAndView("/common/success",map);
+    }
 }
