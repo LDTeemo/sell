@@ -1,10 +1,15 @@
 package com.imooc.sell.dataObject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.imooc.sell.enums.ProductStatusEnum;
+import com.imooc.sell.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 商品信息实体类
@@ -36,7 +41,14 @@ public class ProductInfo {
 
     private Integer productStatus;
 
+    private Date createTime;
 
+    private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getEnum(this.productStatus,ProductStatusEnum.class);
+    }
 
 
 }
