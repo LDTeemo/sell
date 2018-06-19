@@ -71,7 +71,9 @@ public class SellerProductController {
 
     @PostMapping("/doUpdate")
     public ModelAndView doUpdate (@Valid ProductForm productForm,
-                                  BindingResult bindingResult){
+                                  BindingResult bindingResult,
+                                  Map<String , Object> map){
+
         return null;
     }
 
