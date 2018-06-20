@@ -20,7 +20,12 @@ public class ExceptionHandler {
         log.info("业务处理发生错误，错误信息：{}",e.getMessage());
         Map<String , Object> map = new HashMap<>();
         map.put("msg",e.getMessage());
-        map.put("url","/sell/seller/order/list");
+        if(e.getCode()!=20){
+            map.put("url","/sell/seller/order/list");
+        }else{
+            map.put("url","/sell/seller/category/toAdd");
+        }
+
         return new ModelAndView("/common/error",map);
     }
 }

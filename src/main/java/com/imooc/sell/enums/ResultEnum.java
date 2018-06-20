@@ -27,7 +27,10 @@ public enum ResultEnum {
     WECHAT_AUTHORIZE_ERROR(19,"微信相关异常"),
 
     ORDER_OWNER_ERROR(18,"订单所有者非当前买家"),
+
     ORDER_PAID_MONEY_NOT_RIGHT(19,"订单金额与支付金额不一致"),
+
+    PRODUCT_CATEGORY_ALREADY_EXISTS(20 , "该类别码值已存在")
     ;
     private Integer code;
     private String msg;
