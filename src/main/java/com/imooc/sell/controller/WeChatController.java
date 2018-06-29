@@ -50,6 +50,7 @@ public class WeChatController {
             throw new SellException(ResultEnum.WECHAT_AUTHORIZE_ERROR.getCode(),e.getError().getErrorMsg());
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
+        log.info("授权获取到的用户openID：{}，回调地址：{}",openId,returnUrl);
         return "redirect:" + returnUrl + "?openid=" + openId;
 
     }

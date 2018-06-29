@@ -18,15 +18,21 @@ server:
     context-path: /sell
   port: 8080
 wechat:
-# 公众号
-  mpAppId: wxd898fcb01713c658
-  mpAppSecret: 29d8a650db31472aa87800e3b0d739f2
+# 公众号 女王绝美水果捞
+  mpAppId: wx9c82b28
+  mpAppSecret: adfbbae75718f8
+
 #测试公众号
 #  mpAppId: wx51aff1c2551f9f9e
 #  mpAppSecret: c63473b5f9c39572ade7c31bd6819287
-  mchId: 1483469312
-  mchKey: C5245D70627C1F8E9964D494B0735025
-  keyPath: http://app-all.b0.upaiyun.com/01d3059e868cedea3b361b2ad1c05254.p12
+#商户号
+  mchId: 1496314772
+#  商户密钥
+  mchKey: 1234567899888
+
+#  keyPath: http://app-all.b0.upaiyun.com/01d3059e868cedea3b361b2ad1c05254.p12
+  keyPath: F:/03-学习总结/Springboot学习总结/cert/apiclient_cert.p12
+
   notifyUrl: http://sellasmjne.natapp1.cc/sell/pay/notify
 
 

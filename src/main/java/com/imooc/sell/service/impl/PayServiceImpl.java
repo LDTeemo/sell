@@ -2,9 +2,11 @@ package com.imooc.sell.service.impl;
 
 import com.imooc.sell.appException.SellException;
 import com.imooc.sell.dto.OrderDTO;
+import com.imooc.sell.enums.PayStatusEnum;
 import com.imooc.sell.enums.ResultEnum;
 import com.imooc.sell.service.OrderService;
 import com.imooc.sell.service.PayService;
+import com.imooc.sell.utils.EnumUtil;
 import com.imooc.sell.utils.JsonUtil;
 import com.imooc.sell.utils.MathUtil;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
@@ -51,8 +53,8 @@ public class PayServiceImpl implements PayService {
     /**
      * 支付成功微信医保回调通知
      * 做支付确认
-     * @param notifyData
-     * @return
+     * @param String notifyData
+     * @return PayResponse
      */
     @Override
     public PayResponse notify(String notifyData) {
@@ -76,9 +78,8 @@ public class PayServiceImpl implements PayService {
             throw new SellException(ResultEnum.ORDER_PAID_MONEY_NOT_RIGHT);
         }
         // 6. 修改系统的订单状态
-        orderService.paidOrder(orderDTO);
-
-
+        OrderDTO paidResult = orderService.paidOrder(orderDTO);
+        log.info("支付成功后回调修改订单状态：{}",EnumUtil.getEnum(paidResult.getPayStatus(),PayStatusEnum.class).getMsg());
         return payResponse;
     }
 }
